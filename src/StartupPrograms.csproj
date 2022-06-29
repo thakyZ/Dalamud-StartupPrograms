@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Authors></Authors>
-    <Company></Company>
-    <Version>0.0.0.1</Version>
-    <Description>A sample plugin.</Description>
+    <Authors>Neko Boi Nick</Authors>
+    <Company>Neko Gaming</Company>
+    <Version>1.0.0.0</Version>
+    <Description>A program to start tools upon login or Dalamud startup</Description>
     <Copyright></Copyright>
-    <PackageProjectUrl>https://github.com/goatcorp/SamplePlugin</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/thakyZ/Dalamud-StartupPrograms</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\Data\goat.png">
+    <Content Include="..\Data\startupPrograms.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>false</Visible>
     </Content>
@@ -28,6 +28,8 @@
 
   <PropertyGroup>
     <DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
+    <BaseOutputPath>$(appdata)\XIVLauncher\devPlugins\StartupPrograms</BaseOutputPath>
+    <RootNamespace>NekoBoiNick.FFXIV.DalamudPlugin.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

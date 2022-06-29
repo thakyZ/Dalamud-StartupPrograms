@@ -1,0 +1,15 @@
+{
+  "Author": "Neko Boi Nick",
+  "Name": "Startup Programs",
+  "Punchline": "TeamCraft packet capture not working for you upon startup? Try this instead.",
+  "Description": "A program to start tools upon login or Dalamud startup.",
+  "Tags": ["Startup", "Tools", "Delay"],
+  "InternalName": "startupPrograms",
+  "AssemblyVersion": "1.0.0.0",
+  "RepoUrl": "https://github.com/thakyZ/Dalamud-StartupPrograms",
+  "ApplicableVersion": "any",
+  "DalamudApiLevel": 6,
+  "LoadPriority": 0,
+  "ImageUrls": null,
+  "IconUrl": "https://raw.githubusercontent.com/thakyZ/Dalamud-StartupPrograms/main/Data/startupPrograms.png"
+}
