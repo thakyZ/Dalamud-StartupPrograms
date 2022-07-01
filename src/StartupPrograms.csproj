@@ -5,7 +5,7 @@
     <Company>Neko Gaming</Company>
     <Version>1.0.0.0</Version>
     <Description>A program to start tools upon login or Dalamud startup</Description>
-    <Copyright></Copyright>
+    <Copyright>a</Copyright>
     <PackageProjectUrl>https://github.com/thakyZ/Dalamud-StartupPrograms</PackageProjectUrl>
   </PropertyGroup>
 
@@ -15,6 +15,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
@@ -27,13 +28,14 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
-    <BaseOutputPath>$(appdata)\XIVLauncher\devPlugins\StartupPrograms</BaseOutputPath>
+    <DalamudLibPath>$(AppData)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
+    <OutputPath>$(AppData)\XIVLauncher\devPlugins\StartupPrograms\</OutputPath>
+    <BaseOutputPath>$(AppData)\XIVLauncher\devPlugins\StartupPrograms\</BaseOutputPath>
     <RootNamespace>NekoBoiNick.FFXIV.DalamudPlugin.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DalamudPackager" Version="2.1.6" />
+    <PackageReference Include="DalamudPackager" Version="2.1.7" />
     <Reference Include="FFXIVClientStructs">
       <HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
       <Private>false</Private>
