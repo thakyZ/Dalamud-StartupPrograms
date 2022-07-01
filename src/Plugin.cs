@@ -1,10 +1,13 @@
 ﻿using Dalamud.Game.ClientState;
 using Dalamud.Game.Command;
+using Dalamud.Game.Gui.PartyFinder.Types;
 using Dalamud.IoC;
 using Dalamud.Logging;
 using Dalamud.Plugin;
 
 using Lumina;
+
+using Microsoft.VisualBasic;
 
 using System;
 using System.Diagnostics;
@@ -12,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Permissions;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace NekoBoiNick.FFXIV.DalamudPlugin.StartupPrograms {
@@ -113,12 +117,28 @@ namespace NekoBoiNick.FFXIV.DalamudPlugin.StartupPrograms {
       return StartProgram(program.Path, program.RunAsAdmin);
     }
 
+    private static (string, string) GetProgramAndArguments(string path) {
+      (string, string) tempTruple = ("", "");
+      var parts = Regex.Matches(path, @"[\""].+?[\""]|[^ ]+").Cast<Match>().Select(m => m.Value).ToList();
+      PluginLog.Information($"{parts.Count}");
+      foreach (var part in parts) {
+        PluginLog.Information($"{part}");
+      }
+      var program = parts[0].Replace("\"","");
+      var arguments = string.Join(" ", parts.ToArray()[1 .. parts.Count]);
+      tempTruple.Item1 = program;
+      tempTruple.Item2 = arguments;
+      return tempTruple;
+    }
+
     private static Task<bool> StartProgram(string path, bool asAdmin) {
       var taskCompletion = new TaskCompletionSource<bool>();
+      (string, string) truple = GetProgramAndArguments(path);
       var proc = new ProcessStartInfo {
         UseShellExecute = true,
         WorkingDirectory = Directory.GetParent(path)?.FullName ?? Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "XIVLauncher"),
-        FileName = path
+        FileName = truple.Item1,
+        Arguments = truple.Item2
       };
       if (asAdmin) {
         proc.Verb = "runas";
@@ -138,15 +158,16 @@ namespace NekoBoiNick.FFXIV.DalamudPlugin.StartupPrograms {
     }
 
     private static bool GetIfFileIsAccessable(string path) {
-      if (!File.Exists(path)) {
-        PluginLog.Warning("The program at the path `{0}` does not exist.", path);
+      (string, string) truple = GetProgramAndArguments(path);
+      if (!File.Exists(truple.Item1)) {
+        PluginLog.Warning("The program at the path `{0}` does not exist.", truple.Item1);
         return false;
       }
       try {
-        File.Open(path, FileMode.Open, FileAccess.Read).Dispose();
+        File.Open(truple.Item1, FileMode.Open, FileAccess.Read).Dispose();
         return true;
       } catch (IOException e) {
-        PluginLog.Warning("The program at the path `{0}` could not be read.", path);
+        PluginLog.Warning("The program at the path `{0}` could not be read.", truple.Item1);
         PluginLog.Warning("IOException: {0}", e.Message);
         PluginLog.Warning("{0}", e.StackTrace ?? "No call stack.");
         return false;
