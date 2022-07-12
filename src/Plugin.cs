@@ -88,7 +88,7 @@ namespace NekoBoiNick.FFXIV.DalamudPlugin.StartupPrograms {
       if (Configuration.ProgramsToStart.Count <= 0) {
         return;
       }
-      foreach (ProgramListItem program in Configuration.ProgramsToStart.Where(x => GetIfFileIsAccessable(x.Path))) {
+      foreach (ProgramListItem program in Configuration.ProgramsToStart.Where(x => GetIfFileIsAccessable(x.Path) && x.IsEnabled)) {
         if (program.RunAtLogin) {
           _ = Task.Run(async () => _ = await DoWaitUntilLogin(program));
         } else {
