@@ -86,7 +86,7 @@ namespace NekoBoiNick.FFXIV.DalamudPlugin.StartupPrograms {
 
       ImGui.Columns(6);
       ImGui.SetColumnWidth(0, 18 + (5 * ImGuiHelpers.GlobalScale));
-      ImGui.SetColumnWidth(1, ImGui.GetWindowContentRegionWidth() - (18 + 16 + 16 + 16 + 14) - ((5 + 45 + 55 + 55 + 26) * ImGuiHelpers.GlobalScale) - 15);
+      ImGui.SetColumnWidth(1, ImGui.GetWindowContentRegionMax().X - (18 + 16 + 16 + 16 + 14) - ((5 + 45 + 55 + 55 + 26) * ImGuiHelpers.GlobalScale) - 15);
       ImGui.SetColumnWidth(2, 16 + (45 * ImGuiHelpers.GlobalScale));
       ImGui.SetColumnWidth(3, 16 + (55 * ImGuiHelpers.GlobalScale));
       ImGui.SetColumnWidth(4, 16 + (55 * ImGuiHelpers.GlobalScale));
